@@ -2,8 +2,6 @@
 
 namespace GameReviewSolution.Models
 {
-    [Table("StreetAddresses")]
-
     public class StreetAddress
     {
         public string Id { get; set; }

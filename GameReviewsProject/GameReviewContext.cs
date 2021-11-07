@@ -9,7 +9,7 @@ namespace GameReviewSolution
         public DbSet<Game> Games { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ReviewPost> ReviewPosts { get; set;}
-        public string DbPath { get; private set; }
+        private string DbPath { get; set; }
 
         public GameReviewContext(string dbPath = null)
         {
