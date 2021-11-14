@@ -31,6 +31,7 @@ namespace GameReviewSolution
             {
                 c.SwaggerDoc("v1", new OpenApiInfo {Title = "GameReviewsProject", Version = "v1"});
             });
+            services.AddDbContext<GameReviewContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
