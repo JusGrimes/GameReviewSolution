@@ -3,29 +3,30 @@
     <PropertyGroup>
         <TargetFramework>net5.0</TargetFramework>
         <RootNamespace>GameReviewSolution</RootNamespace>
-      <UserSecretsId>487933d1-a124-432b-bb8d-adf398e15a42</UserSecretsId>
-  </PropertyGroup>
+        <UserSecretsId>487933d1-a124-432b-bb8d-adf398e15a42</UserSecretsId>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>disable</Nullable>
+    </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="EntityFramework" Version="6.4.4" />
+        <PackageReference Include="EntityFramework" Version="6.4.4"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.11">
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-          <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+            <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11" />
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3" />
-        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
-        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
-        <PackageReference Include="xunit" Version="2.4.1" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.11"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.3"/>
+        <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0"/>
+        <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3"/>
+        <PackageReference Include="xunit" Version="2.4.1"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers" />
-      <Folder Include="DTOs" />
-      <Folder Include="Extensions" />
-      <Folder Include="Migrations" />
+        <Folder Include="Controllers"/>
+        <Folder Include="Extensions"/>
+        <Folder Include="Migrations"/>
     </ItemGroup>
 
 </Project>
