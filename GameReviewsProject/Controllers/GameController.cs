@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+using GameReviewSolution.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using GameReviewSolution;
-using GameReviewSolution.Models;
+using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Controllers;
 
@@ -15,9 +12,19 @@ namespace GameReviewSolution.Controllers;
 public class GameController : ControllerBase
 {
     private readonly GameReviewContext _context;
-
-    public GameController(GameReviewContext context)
+    private readonly ILogger<GameController> _logger;
+    public GameController(GameReviewContext context, ILogger<GameController> logger)
     {
         _context = context;
+        this._logger = logger;
     }
+
+    [HttpGet]
+    [Route("/{id?}")]
+    public Task<ActionResult<GameDto>> GetGame(int id)
+    {
+        var game = _context.Games.FirstOrDefault(g => g.Id == id);
+        return Task.FromResult<ActionResult<GameDto>>(game is not null ? game.ToDto() : NotFound());
+    }
+    
 }

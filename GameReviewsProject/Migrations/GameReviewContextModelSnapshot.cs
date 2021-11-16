@@ -45,6 +45,9 @@ namespace GameReviewSolution.Migrations
                     b.Property<int?>("GamePublisherId")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("GameUri")
+                        .HasColumnType("TEXT");
+
                     b.Property<DateTime?>("ReleaseDate")
                         .HasColumnType("TEXT");
 
@@ -108,15 +111,18 @@ namespace GameReviewSolution.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("FirstLine")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SecondLine")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("State")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Zipcode")
