@@ -1,4 +1,5 @@
-﻿#nullable enable
+﻿// ReSharper disable UnusedAutoPropertyAccessor.Global
+#pragma warning disable CS8632
 namespace GameReviewSolution.Models;
 
 public class StreetAddress

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GameReviewSolution.Models;
 
@@ -16,12 +17,8 @@ public class ReviewPost
         get => _rating;
         set
         {
-            _rating = value switch
-            {
-                < 1 => 1,
-                > 5 => 5,
-                _ => value
-            };
+            if (value is > 5 or < 0) throw new ArgumentOutOfRangeException(nameof(value));
+            _rating = value;
         }
     }
 }

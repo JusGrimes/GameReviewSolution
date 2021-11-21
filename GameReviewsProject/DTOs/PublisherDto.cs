@@ -1,4 +1,5 @@
 ﻿using GameReviewSolution.Models;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace GameReviewSolution.DTOs;
 

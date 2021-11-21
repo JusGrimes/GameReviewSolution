@@ -30,7 +30,7 @@ public class PublisherController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route("{id:int}")]
     public async Task<ActionResult> GetPublisher(int id)
     {
         var publisherQuery = from p in _context.Publishers

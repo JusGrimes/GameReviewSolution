@@ -31,7 +31,7 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{id}")]
+    [Route("{id:int}")]
     public async Task<IActionResult> GetGame(int id)
     {
         var gameQuery = from g in _context.Games
