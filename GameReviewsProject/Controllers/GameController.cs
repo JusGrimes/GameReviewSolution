@@ -1,4 +1,3 @@
-
 using System.Linq;
 using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
@@ -22,18 +21,29 @@ public class GameController : ControllerBase
     }
 
     [HttpGet]
-    [Route("/{id?}")]
+    [Route("")]
+    public async Task<IActionResult> GetGames()
+    {
+        var gameQuery = from g in _context.Games
+            select GameDto.FromEntity(g);
+
+        return Ok(await gameQuery.ToListAsync());
+    }
+
+    [HttpGet]
+    [Route("{id}")]
     public async Task<IActionResult> GetGame(int id)
     {
         var gameQuery = from g in _context.Games
             where g.Id == id
-            select g.ToDto();
+            select GameDto.FromEntity(g);
         var game = await gameQuery.SingleOrDefaultAsync();
         if (game is null)
         {
             _logger.LogDebug("Couldn't locate game with {Id}", id);
             return NotFound();
         }
+
         return Ok(game);
     }
 }

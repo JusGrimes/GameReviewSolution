@@ -4,9 +4,9 @@ namespace GameReviewSolution.Models;
 
 public class ReviewPost
 {
+    private int _rating;
     public int UserId { get; set; }
     public User Author { get; set; }
-    private int _rating;
     public int Id { get; set; }
     [MaxLength] public string ReviewText { get; set; }
 

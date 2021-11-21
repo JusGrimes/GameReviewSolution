@@ -17,11 +17,8 @@ public class GameDto
     [JsonPropertyName("Publisher")] public string PublisherName { get; set; }
 
     [JsonPropertyName("publisher_uri")] public string PublisherWebsiteUri { get; set; }
-}
 
-public static class GameDtoExtension
-{
-    public static GameDto ToDto(this Game game)
+    public static GameDto FromEntity(Game game)
     {
         return new GameDto
         {

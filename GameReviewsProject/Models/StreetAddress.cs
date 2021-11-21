@@ -1,6 +1,4 @@
 ﻿#nullable enable
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace GameReviewSolution.Models;
 
 public class StreetAddress
