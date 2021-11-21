@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/[controller]s")]
 [ApiController]
 public class ReviewController : ControllerBase
 {
@@ -22,11 +22,16 @@ public class ReviewController : ControllerBase
     }
 
     [HttpGet]
-    [Route("")]
-    public async Task<IActionResult> GetAllReviews()
+    [Route("{gameId:int}")]
+    public async Task<IActionResult> GetAllGameReviewsById(int gameId)
     {
         var reviewsQuery = from r in _context.ReviewPosts
+            where r.GameId == gameId
             select ReviewPostDto.FromEntity(r);
-        return Ok(await reviewsQuery.ToListAsync());
+
+        var reviewPostDtos = await reviewsQuery.ToListAsync();
+        if (reviewPostDtos.Count == 0) return NoContent();
+        
+        return Ok(reviewPostDtos);
     }
 }

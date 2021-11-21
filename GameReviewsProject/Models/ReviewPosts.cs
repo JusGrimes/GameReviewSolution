@@ -8,6 +8,7 @@ public class ReviewPost
     private int _rating;
     public int Id { get; set; }
     public int GameId { get; set; }
+    public Game Game { get; set; }
     public int UserId { get; set; }
     public User Author { get; set; }
     [MaxLength] public string ReviewText { get; set; }
