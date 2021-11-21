@@ -1,9 +1,10 @@
 ﻿using GameReviewSolution.Models;
+
 // ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace GameReviewSolution.DTOs;
 
-public class PublisherDto
+internal class PublisherDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
