@@ -21,6 +21,8 @@ public class ReviewController : ControllerBase
         _logger = logger;
     }
 
+    [HttpGet]
+    [Route("")]
     public async Task<IActionResult> GetAllReviews()
     {
         var reviewsQuery = from r in _context.ReviewPosts
