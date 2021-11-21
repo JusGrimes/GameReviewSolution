@@ -39,7 +39,7 @@ public class PublisherController : ControllerBase
         var publisher = await publisherQuery.SingleOrDefaultAsync();
         if (publisher is null)
         {
-            _logger.LogDebug("Couldn't locate publisher with {Id}", id);
+            _logger.LogDebug("Couldn't locate publisher with id: {Id}", id);
             return NotFound();
         }
 

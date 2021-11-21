@@ -40,7 +40,7 @@ public class GameController : ControllerBase
         var game = await gameQuery.SingleOrDefaultAsync();
         if (game is null)
         {
-            _logger.LogDebug("Couldn't locate game with {Id}", id);
+            _logger.LogDebug("Couldn't locate game with id: {Id}", id);
             return NotFound();
         }
 
