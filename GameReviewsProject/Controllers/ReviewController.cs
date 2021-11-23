@@ -22,7 +22,25 @@ public class ReviewController : ControllerBase
     }
 
     [HttpGet]
-    [Route("{gameId:int}")]
+    [Route("game/{gameId:int}/review/{reviewId:int}")]
+    public async Task<IActionResult> getAllGameReviews(int gameId, int reviewId)
+    {
+        var reviewsQuery = from r in _context.ReviewPosts
+            where r.GameId == gameId && r.Id == reviewId
+            select ReviewPostDto.FromEntity(r);
+        var result = await reviewsQuery.SingleOrDefaultAsync();
+
+        if (result is not null)
+        {
+            return Ok(result);
+        }
+        _logger.LogDebug("Couldn't locate review with ReviewId:{ReviewId} and gameId:{GameId}", reviewId,gameId);
+        return NotFound();
+    }
+
+
+    [HttpGet]
+    [Route("game/{gameId:int}")]
     public async Task<IActionResult> GetAllGameReviewsById(int gameId)
     {
         var reviewsQuery = from r in _context.ReviewPosts

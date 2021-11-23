@@ -26,7 +26,11 @@ public class PublisherController : ControllerBase
     {
         var publisherQuery = from p in _context.Publishers
             select PublisherDto.FromEntity(p);
-        return Ok(await publisherQuery.ToListAsync());
+
+
+        var publisherDtos = await publisherQuery.ToListAsync();
+        if (publisherDtos.Count == 0) return NoContent();
+        return Ok(publisherDtos);
     }
 
     [HttpGet]
@@ -37,12 +41,10 @@ public class PublisherController : ControllerBase
             where p.Id == id
             select PublisherDto.FromEntity(p);
         var publisher = await publisherQuery.SingleOrDefaultAsync();
-        if (publisher is null)
-        {
-            _logger.LogDebug("Couldn't locate publisher with id: {Id}", id);
-            return NotFound();
-        }
+        if (publisher is not null) return Ok(publisher);
+        
+        _logger.LogDebug("Couldn't locate publisher with id: {Id}", id);
+        return NotFound();
 
-        return Ok(publisher);
     }
 }

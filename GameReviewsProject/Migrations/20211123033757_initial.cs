@@ -1,9 +1,11 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
+#nullable disable
+
 namespace GameReviewSolution.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +47,7 @@ namespace GameReviewSolution.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(type: "TEXT", nullable: true),
                     ReleaseDate = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    GameUri = table.Column<string>(type: "TEXT", nullable: true),
                     GamePublisherId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
@@ -54,8 +57,7 @@ namespace GameReviewSolution.Migrations
                         name: "FK_Games_Publishers_GamePublisherId",
                         column: x => x.GamePublisherId,
                         principalTable: "Publishers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -77,8 +79,7 @@ namespace GameReviewSolution.Migrations
                         name: "FK_Users_StreetAddress_MailingAddressId",
                         column: x => x.MailingAddressId,
                         principalTable: "StreetAddress",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -107,10 +108,10 @@ namespace GameReviewSolution.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    GameId = table.Column<int>(type: "INTEGER", nullable: false),
                     UserId = table.Column<int>(type: "INTEGER", nullable: false),
                     ReviewText = table.Column<string>(type: "TEXT", nullable: true),
-                    Rating = table.Column<int>(type: "INTEGER", nullable: false),
-                    GameId = table.Column<int>(type: "INTEGER", nullable: true)
+                    Rating = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,7 +121,7 @@ namespace GameReviewSolution.Migrations
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ReviewPosts_Users_UserId",
                         column: x => x.UserId,

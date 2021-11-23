@@ -1,5 +1,7 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,7 +26,13 @@ public class Startup
         {
             c.SwaggerDoc("v1", new OpenApiInfo {Title = "GameReviewsProject", Version = "v1"});
         });
-        services.AddDbContext<GameReviewContext>();
+        services.AddDbContext<GameReviewContext>(opt =>
+        {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            var separator = System.IO.Path.DirectorySeparatorChar;
+            opt.UseSqlite($"Data Source={path}{separator}GameReviewDatabase.db");
+        });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

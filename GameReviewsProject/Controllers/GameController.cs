@@ -38,12 +38,11 @@ public class GameController : ControllerBase
             where g.Id == id
             select GameDto.FromEntity(g);
         var game = await gameQuery.SingleOrDefaultAsync();
-        if (game is null)
-        {
-            _logger.LogDebug("Couldn't locate game with id: {Id}", id);
-            return NotFound();
-        }
+        
+        if (game is not null) return Ok(game);
+        
+        _logger.LogDebug("Couldn't locate game with id: {Id}", id);
+        return NotFound();
 
-        return Ok(game);
     }
 }

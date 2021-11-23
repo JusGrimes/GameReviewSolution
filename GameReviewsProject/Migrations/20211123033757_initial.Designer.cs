@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameReviewSolution.Migrations
 {
     [DbContext(typeof(GameReviewContext))]
-    [Migration("20211121033142_game_to_reviewpost")]
-    partial class game_to_reviewpost
+    [Migration("20211123033757_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
