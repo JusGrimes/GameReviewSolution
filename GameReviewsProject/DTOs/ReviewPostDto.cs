@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GameReviewSolution.DTOs;
 
-internal class ReviewPostDto
+public class ReviewPostDto
 {
     public int Id { get; set; }
     public int UserId { get; set; }

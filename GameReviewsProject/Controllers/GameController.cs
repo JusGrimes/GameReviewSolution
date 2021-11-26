@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation;
 using GameReviewSolution.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ public class GameController : ControllerBase
     private readonly GameReviewContext _context;
     private readonly ILogger<GameController> _logger;
 
-    public GameController(GameReviewContext context, ILogger<GameController> logger)
+    public GameController(GameReviewContext context, ILogger<GameController> logger, IValidator<GameDto> gameDtoValidator)
     {
         _context = context;
         _logger = logger;
@@ -43,6 +44,12 @@ public class GameController : ControllerBase
         
         _logger.LogDebug("Couldn't locate game with id: {Id}", id);
         return NotFound();
+    }
 
+    [HttpPost]
+    [Route("")]
+    public async Create([FromBody] GameDto)
+    {
+        return OK()
     }
 }

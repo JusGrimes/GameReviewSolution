@@ -4,7 +4,7 @@ using GameReviewSolution.Models;
 
 namespace GameReviewSolution.DTOs;
 
-internal class GameDto
+public class GameDto
 {
     public int Id { get; set; }
 

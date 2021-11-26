@@ -4,7 +4,7 @@
 
 namespace GameReviewSolution.DTOs;
 
-internal class PublisherDto
+public class PublisherDto
 {
     public int Id { get; set; }
     public string Name { get; set; }
