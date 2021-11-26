@@ -10,6 +10,7 @@ public class ReviewPostDto
     
     public GameDto Game { get; set; }
     public UserDto Author { get; set; }
+    public int Rating { get; set; }
     public string ReviewText { get; set; }
     
     public static ReviewPostDto FromEntity(ReviewPost post)
@@ -20,6 +21,7 @@ public class ReviewPostDto
             UserId = post.UserId,
             Game = GameDto.FromEntity(post.Game),
             Author = UserDto.FromEntity(post.Author),
+            Rating = post.Rating,
             ReviewText = post.ReviewText
         };
     }

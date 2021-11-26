@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentValidation;
 using GameReviewSolution.DTOs;
+using GameReviewSolution.Validators.Helpers;
 
 namespace GameReviewSolution.Validators;
 

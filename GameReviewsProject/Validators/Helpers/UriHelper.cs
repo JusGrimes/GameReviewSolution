@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameReviewSolution.Validators;
+namespace GameReviewSolution.Validators.Helpers;
 
 public static class UriHelper
 {
