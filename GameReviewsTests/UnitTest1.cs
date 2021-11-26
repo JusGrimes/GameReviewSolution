@@ -1,11 +1,10 @@
+using GameReviewSolution;
+using Microsoft.EntityFrameworkCore;
 using Xunit;
 
 namespace GameReviewsTests;
 
-public class UnitTest1
+public class GameReviewControllersTest : 
 {
-    [Fact]
-    public void Test1()
-    {
-    }
+
 }
