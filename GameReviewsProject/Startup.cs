@@ -1,5 +1,7 @@
 using System;
 using FluentValidation;
+using FluentValidation.AspNetCore;
+using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
 using GameReviewSolution.Validators;
 using Microsoft.AspNetCore.Builder;
@@ -36,7 +38,10 @@ public class Startup
             var separator = System.IO.Path.DirectorySeparatorChar;
             opt.UseSqlite($"Data Source={path}{separator}GameReviewDatabase.db");
         });
-        services.AddScoped<IValidator<EmailAddress>, EmailValidator>();
+        services.AddScoped<IValidator<GameDto>, GameDtoValidator>();
+        services.AddScoped<IValidator<ReviewPostDto>, ReviewPostValidator>();
+        services.AddScoped<IValidator<EmailAddress>, EmailAddressValidator>();
+
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
