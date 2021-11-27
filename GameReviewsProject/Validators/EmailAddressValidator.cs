@@ -3,9 +3,9 @@ using GameReviewSolution.Models;
 
 namespace GameReviewSolution.Validators;
 
-public class EmailValidator : AbstractValidator<EmailAddress>
+public class EmailAddressValidator : AbstractValidator<EmailAddress>
 {
-    public EmailValidator()
+    public EmailAddressValidator()
     {
         RuleFor(email => email.EmailAddressUri).EmailAddress();
     }
