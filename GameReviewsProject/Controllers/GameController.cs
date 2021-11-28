@@ -23,17 +23,17 @@ public class GameController : ControllerBase
 
     [HttpGet]
     [Route("")]
-    public async Task<IActionResult> GetGames()
+    public async Task<IActionResult> GetAll()
     {
         var gameList = _gameRepoService.GetAllDtos();
         _logger.LogInformation("Games found : {GamesFound}", gameList.Count);
-        if (gameList.Count == 0) return NotFound();
+        if (gameList.Count == 0) return NoContent();
         return Ok(gameList);
     }
 
     [HttpGet]
     [Route("{id:int}")]
-    public async Task<IActionResult> GetGame(int id)
+    public async Task<IActionResult> GetById(int id)
     {
         GameDto gameDto;
         try
