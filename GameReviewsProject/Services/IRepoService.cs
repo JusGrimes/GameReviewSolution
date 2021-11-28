@@ -9,8 +9,8 @@ public interface IRepoService<TEntity, TDto>
     public TEntity GetEntityById(int id);
     public TDto GetDtoById(int id);
 
-    public ICollection<Game> GetAllEntities();
-    public ICollection<GameDto> GetAllDtos();
+    public ICollection<TEntity> GetAllEntities();
+    public ICollection<TDto> GetAllDtos();
 
 
     public TEntity EntityFrom(TDto dto);
