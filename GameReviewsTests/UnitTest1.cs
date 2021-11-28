@@ -4,7 +4,7 @@ using Xunit;
 
 namespace GameReviewsTests;
 
-public class GameReviewControllersTest : 
+public class GameReviewControllersTest
 {
 
 }

@@ -6,9 +6,8 @@ namespace GameReviewSolution.Validators;
 
 public class ReviewPostValidator : AbstractValidator<ReviewPostDto>
 {
-    public ReviewPostValidator(IValidator<GameDtoValidator> gameValidator, IValidator<User> userValidator)
+    public ReviewPostValidator(IValidator<GameDto> gameValidator)
     {
         RuleFor(dto => dto.Rating).InclusiveBetween(1, 5);
-
     }
 }

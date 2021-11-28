@@ -42,9 +42,8 @@ public class PublisherController : ControllerBase
             select PublisherDto.FromEntity(p);
         var publisher = await publisherQuery.SingleOrDefaultAsync();
         if (publisher is not null) return Ok(publisher);
-        
+
         _logger.LogDebug("Couldn't locate publisher with id: {Id}", id);
         return NotFound();
-
     }
 }
