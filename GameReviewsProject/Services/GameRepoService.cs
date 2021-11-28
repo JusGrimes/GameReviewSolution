@@ -31,9 +31,7 @@ public class GameRepoService : IRepoService<Game, GameDto>
 
     public ICollection<Game> GetAllEntities()
     {
-        var query = from g in _context.Games
-            select g;
-        return query.ToImmutableList();
+        return _context.Games.ToImmutableList();
     }
 
     public ICollection<GameDto> GetAllDtos()
