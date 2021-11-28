@@ -18,13 +18,16 @@ public class GameRepoService : IRepoService<Game, GameDto>
         _context = context;
         _logger = logger;
     }
-    
+
     public Game GetEntityById(int id)
     {
         return _context.Games.Single(g => g.Id == id);
     }
 
-    public GameDto GetDtoById(int id) => DtoFrom(GetEntityById(id));
+    public GameDto GetDtoById(int id)
+    {
+        return DtoFrom(GetEntityById(id));
+    }
 
     public ICollection<Game> GetAllEntities()
     {
@@ -33,7 +36,10 @@ public class GameRepoService : IRepoService<Game, GameDto>
         return query.ToImmutableList();
     }
 
-    public ICollection<GameDto> GetAllDtos() => GetAllEntities().Select(DtoFrom).ToImmutableList();
+    public ICollection<GameDto> GetAllDtos()
+    {
+        return GetAllEntities().Select(DtoFrom).ToImmutableList();
+    }
 
     public Game EntityFrom(GameDto dto)
     {
@@ -44,6 +50,7 @@ public class GameRepoService : IRepoService<Game, GameDto>
                 dto.PublisherName.ToUpperInvariant()
         );
     }
+
     public GameDto DtoFrom(Game entity)
     {
         return new GameDto

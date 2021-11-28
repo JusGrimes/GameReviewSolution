@@ -11,5 +11,4 @@ public static class UriHelper
                    uriCreated.Scheme == Uri.UriSchemeHttp ||
                    uriCreated.Scheme == Uri.UriSchemeHttps);
     }
-
 }

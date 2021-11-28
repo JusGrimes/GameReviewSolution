@@ -1,6 +1,6 @@
 using System;
+using System.IO;
 using FluentValidation;
-using FluentValidation.AspNetCore;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
 using GameReviewSolution.Services;
@@ -36,10 +36,10 @@ public class Startup
         {
             var folder = Environment.SpecialFolder.LocalApplicationData;
             var path = Environment.GetFolderPath(folder);
-            var separator = System.IO.Path.DirectorySeparatorChar;
+            var separator = Path.DirectorySeparatorChar;
             opt.UseSqlite($"Data Source={path}{separator}GameReviewDatabase.db");
         });
-        
+
         services.AddScoped<IValidator<GameDto>, GameDtoValidator>();
         services.AddScoped<IValidator<ReviewPostDto>, ReviewPostValidator>();
         services.AddScoped<IValidator<EmailAddress>, EmailAddressValidator>();

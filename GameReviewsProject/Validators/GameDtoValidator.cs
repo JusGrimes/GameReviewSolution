@@ -1,5 +1,4 @@
-﻿using System;
-using FluentValidation;
+﻿using FluentValidation;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Validators.Helpers;
 
@@ -14,5 +13,4 @@ public class GameDtoValidator : AbstractValidator<GameDto>
         RuleFor(dto => dto.PublisherWebsiteUri).Must(UriHelper.IsValidUri);
         RuleFor(dto => dto.PublisherName).NotEmpty();
     }
-
 }
