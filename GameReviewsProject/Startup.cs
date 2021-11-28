@@ -43,7 +43,7 @@ public class Startup
         services.AddScoped<IValidator<GameDto>, GameDtoValidator>();
         services.AddScoped<IValidator<ReviewPostDto>, ReviewPostValidator>();
         services.AddScoped<IValidator<EmailAddress>, EmailAddressValidator>();
-        services.AddScoped<IService<Game, GameDto>, GameService>();
+        services.AddScoped<IRepoService<Game, GameDto>, GameRepoService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

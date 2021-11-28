@@ -1,8 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using FluentValidation;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
 using GameReviewSolution.Services;
@@ -15,12 +12,12 @@ namespace GameReviewSolution.Controllers;
 [ApiController]
 public class GameController : ControllerBase
 {
-    private readonly IService<Game, GameDto> _gameService;
+    private readonly IRepoService<Game, GameDto> _gameRepoService;
     private readonly ILogger<GameController> _logger;
 
-    public GameController(IService<Game, GameDto> gameService, ILogger<GameController> logger)
+    public GameController(IRepoService<Game, GameDto> gameRepoService, ILogger<GameController> logger)
     {
-        _gameService = gameService;
+        _gameRepoService = gameRepoService;
         _logger = logger;
     }
 
@@ -28,7 +25,7 @@ public class GameController : ControllerBase
     [Route("")]
     public async Task<IActionResult> GetGames()
     {
-        var gameList = _gameService.GetAllDtos();
+        var gameList = _gameRepoService.GetAllDtos();
         _logger.LogInformation("Games found : {GamesFound}", gameList.Count);
         if (gameList.Count == 0) return NotFound();
         return Ok(gameList);
@@ -41,7 +38,7 @@ public class GameController : ControllerBase
         GameDto gameDto;
         try
         {
-            gameDto = _gameService.GetDtoById(id);
+            gameDto = _gameRepoService.GetDtoById(id);
             _logger.LogInformation("Found Game with Id: {Id}", id);
         }
         catch (InvalidOperationException e)

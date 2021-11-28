@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
+using Microsoft.CodeAnalysis.Classification;
 
 namespace GameReviewSolution.Services;
 
-public interface IService<TEntity,TDto>
+public interface IRepoService<TEntity,TDto>
 {
     public TEntity GetEntityById(int id);
     public TDto GetDtoById(int id);

@@ -7,13 +7,13 @@ using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
 
-public class GameService : IService<Game, GameDto>
+public class GameRepoService : IRepoService<Game, GameDto>
 {
     private readonly GameReviewContext _context;
-    private readonly ILogger<GameService> _logger;
+    private readonly ILogger<GameRepoService> _logger;
 
 
-    public GameService(GameReviewContext context, ILogger<GameService> logger)
+    public GameRepoService(GameReviewContext context, ILogger<GameRepoService> logger)
     {
         _context = context;
         _logger = logger;
@@ -21,10 +21,7 @@ public class GameService : IService<Game, GameDto>
     
     public Game GetEntityById(int id)
     {
-        var query = from g in _context.Games
-            where g.Id == id
-            select g;
-        return query.Single();
+        return _context.Games.Single(g => g.Id == id);
     }
 
     public GameDto GetDtoById(int id) => DtoFrom(GetEntityById(id));
@@ -40,13 +37,13 @@ public class GameService : IService<Game, GameDto>
 
     public Game EntityFrom(GameDto dto)
     {
-        var query = from g in _context.Games
-            where g.Title == dto.Title &&
-                  g.GamePublisher.Name.ToUpperInvariant() == dto.PublisherName.ToUpperInvariant()
-            select g;
-        return query.Single();
+        return _context.Games.Single(
+            g =>
+                g.Title == dto.Title &&
+                g.GamePublisher.Name.ToUpperInvariant() ==
+                dto.PublisherName.ToUpperInvariant()
+        );
     }
-
     public GameDto DtoFrom(Game entity)
     {
         return new GameDto
