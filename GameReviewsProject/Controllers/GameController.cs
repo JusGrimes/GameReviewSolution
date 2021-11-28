@@ -41,7 +41,7 @@ public class GameController : ControllerBase
             gameDto = _gameRepoService.GetDtoById(id);
             _logger.LogInformation("Found Game with Id: {Id}", id);
         }
-        catch (InvalidOperationException e)
+        catch (InvalidOperationException)
         {
             _logger.LogInformation("Game not found with Id: {Id}", id);
             return NotFound();

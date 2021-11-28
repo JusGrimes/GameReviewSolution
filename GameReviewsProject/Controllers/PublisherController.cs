@@ -1,8 +1,9 @@
-using System.Linq;
+using System;
 using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
+using GameReviewSolution.Models;
+using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Controllers;
@@ -11,39 +12,41 @@ namespace GameReviewSolution.Controllers;
 [ApiController]
 public class PublisherController : ControllerBase
 {
-    private readonly GameReviewContext _context;
+    private readonly IRepoService<Publisher, PublisherDto> _publisherRepoService;
     private readonly ILogger<PublisherController> _logger;
 
-    public PublisherController(GameReviewContext context, ILogger<PublisherController> logger)
+    public PublisherController(IRepoService<Publisher, PublisherDto> publisherRepoService,
+        ILogger<PublisherController> logger)
     {
-        _context = context;
+        _publisherRepoService = publisherRepoService;
         _logger = logger;
     }
 
     [HttpGet]
     [Route("")]
-    public async Task<ActionResult> GetPublisher()
+    public async Task<ActionResult> GetAll()
     {
-        var publisherQuery = from p in _context.Publishers
-            select PublisherDto.FromEntity(p);
-
-
-        var publisherDtos = await publisherQuery.ToListAsync();
+        var publisherDtos = _publisherRepoService.GetAllDtos();
+        _logger.LogInformation("Publishers found : {PublisherCount}", publisherDtos.Count);
         if (publisherDtos.Count == 0) return NoContent();
         return Ok(publisherDtos);
     }
 
     [HttpGet]
     [Route("{id:int}")]
-    public async Task<ActionResult> GetPublisher(int id)
+    public async Task<ActionResult> GetById(int id)
     {
-        var publisherQuery = from p in _context.Publishers
-            where p.Id == id
-            select PublisherDto.FromEntity(p);
-        var publisher = await publisherQuery.SingleOrDefaultAsync();
-        if (publisher is not null) return Ok(publisher);
-
-        _logger.LogDebug("Couldn't locate publisher with id: {Id}", id);
-        return NotFound();
+        PublisherDto publisherDto;
+        try
+        {
+            publisherDto = _publisherRepoService.GetDtoById(id);
+            _logger.LogInformation("Found publisher with Id: {Id}", id);
+            return Ok(publisherDto);
+        }
+        catch (InvalidOperationException)
+        {
+            _logger.LogInformation("Couldn't locate publisher with Id: {Id}", id);
+            return NotFound();
+        }
     }
 }
