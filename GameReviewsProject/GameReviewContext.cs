@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using GameReviewSolution.Models;
+﻿using GameReviewSolution.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace GameReviewSolution;

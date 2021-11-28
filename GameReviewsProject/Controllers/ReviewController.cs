@@ -30,11 +30,8 @@ public class ReviewController : ControllerBase
             select ReviewPostDto.FromEntity(r);
         var result = await reviewsQuery.SingleOrDefaultAsync();
 
-        if (result is not null)
-        {
-            return Ok(result);
-        }
-        _logger.LogDebug("Couldn't locate review with ReviewId:{ReviewId} and gameId:{GameId}", reviewId,gameId);
+        if (result is not null) return Ok(result);
+        _logger.LogDebug("Couldn't locate review with ReviewId:{ReviewId} and gameId:{GameId}", reviewId, gameId);
         return NotFound();
     }
 
@@ -49,7 +46,7 @@ public class ReviewController : ControllerBase
 
         var reviewPostDtos = await reviewsQuery.ToListAsync();
         if (reviewPostDtos.Count == 0) return NoContent();
-        
+
         return Ok(reviewPostDtos);
     }
 }
