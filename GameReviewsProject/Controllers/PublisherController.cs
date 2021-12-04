@@ -1,7 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using GameReviewSolution.DTOs;
-using GameReviewSolution.Models;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -13,9 +11,9 @@ namespace GameReviewSolution.Controllers;
 public class PublisherController : ControllerBase
 {
     private readonly ILogger<PublisherController> _logger;
-    private readonly IRepoService<Publisher, PublisherDto> _publisherRepoService;
+    private readonly IPublisherRepoService _publisherRepoService;
 
-    public PublisherController(IRepoService<Publisher, PublisherDto> publisherRepoService,
+    public PublisherController(IPublisherRepoService publisherRepoService,
         ILogger<PublisherController> logger)
     {
         _publisherRepoService = publisherRepoService;

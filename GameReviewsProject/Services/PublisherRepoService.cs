@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
 
-internal interface IPublisherRepoService : IRepoService<Publisher, PublisherDto>
+public interface IPublisherRepoService : IRepoService<Publisher, PublisherDto>
 {
 }
 

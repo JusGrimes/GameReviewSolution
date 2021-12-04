@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
-using GameReviewSolution.Models;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,10 +11,10 @@ namespace GameReviewSolution.Controllers;
 [ApiController]
 public class GameController : ControllerBase
 {
-    private readonly IRepoService<Game, GameDto> _gameRepoService;
+    private readonly IGameRepoService _gameRepoService;
     private readonly ILogger<GameController> _logger;
 
-    public GameController(IRepoService<Game, GameDto> gameRepoService, ILogger<GameController> logger)
+    public GameController(IGameRepoService gameRepoService, ILogger<GameController> logger)
     {
         _gameRepoService = gameRepoService;
         _logger = logger;
