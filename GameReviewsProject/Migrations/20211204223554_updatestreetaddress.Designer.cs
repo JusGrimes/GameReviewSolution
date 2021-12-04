@@ -3,6 +3,7 @@ using System;
 using GameReviewSolution;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameReviewSolution.Migrations
 {
     [DbContext(typeof(GameReviewContext))]
-    partial class GameReviewContextModelSnapshot : ModelSnapshot
+    [Migration("20211204223554_updatestreetaddress")]
+    partial class updatestreetaddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.0");
