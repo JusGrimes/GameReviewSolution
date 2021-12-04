@@ -27,7 +27,7 @@ public class ReviewPostRepoService : IReviewPostRepoService
 
     public ReviewPost GetEntityById(int id)
     {
-        return _context.ReviewPosts.Find(id);
+        return _context.ReviewPosts.Single(post => post.Id == id);
     }
 
     public ReviewPostDto GetDtoById(int id)
