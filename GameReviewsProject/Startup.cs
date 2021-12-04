@@ -47,6 +47,7 @@ public class Startup
         services.AddScoped<IGameRepoService, GameRepoService>();
         services.AddScoped<IPublisherRepoService, PublisherRepoService>();
         services.AddScoped<IReviewPostRepoService, ReviewPostRepoService>();
+        services.AddScoped<IUserRepoService, UserRepoService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
