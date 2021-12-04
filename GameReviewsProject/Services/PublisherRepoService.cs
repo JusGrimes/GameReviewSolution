@@ -1,11 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text.Encodings.Web;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
 using Microsoft.Extensions.Logging;
-using ILogger = Microsoft.DotNet.Scaffolding.Shared.ILogger;
 
 namespace GameReviewSolution.Services;
 
@@ -45,11 +43,13 @@ public class PublisherRepoService : IRepoService<Publisher, PublisherDto>
         return null;
     }
 
-    public PublisherDto DtoFrom(Publisher entity) =>
-        new()
+    public PublisherDto DtoFrom(Publisher entity)
+    {
+        return new PublisherDto
         {
             Id = entity.Id,
             Name = entity.Name,
             WebsiteUri = entity.WebsiteUri
         };
+    }
 }

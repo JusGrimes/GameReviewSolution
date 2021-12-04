@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using GameReviewSolution.DTOs;
-using GameReviewSolution.Models;
 
 namespace GameReviewSolution.Services;
 

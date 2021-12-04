@@ -43,7 +43,7 @@ public class Startup
         services.AddScoped<IValidator<GameDto>, GameDtoValidator>();
         services.AddScoped<IValidator<ReviewPostDto>, ReviewPostValidator>();
         services.AddScoped<IValidator<EmailAddress>, EmailAddressValidator>();
-        
+
         services.AddScoped<IRepoService<Game, GameDto>, GameRepoService>();
         services.AddScoped<IRepoService<Publisher, PublisherDto>, PublisherRepoService>();
     }

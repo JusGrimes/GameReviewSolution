@@ -23,7 +23,7 @@ public class ReviewController : ControllerBase
 
     [HttpGet]
     [Route("game/{gameId:int}/review/{reviewId:int}")]
-    public async Task<IActionResult> getAllGameReviews(int gameId, int reviewId)
+    public async Task<IActionResult> GetAllGameReviews(int gameId, int reviewId)
     {
         var reviewsQuery = from r in _context.ReviewPosts
             where r.GameId == gameId && r.Id == reviewId
