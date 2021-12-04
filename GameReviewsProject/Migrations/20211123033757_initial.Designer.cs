@@ -81,7 +81,7 @@ namespace GameReviewSolution.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("GameReviewSolution.Models.ReviewPost", b =>
+            modelBuilder.Entity("GameReviewSolution.Models.ReviewPostDTO", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -181,7 +181,7 @@ namespace GameReviewSolution.Migrations
                     b.Navigation("GamePublisher");
                 });
 
-            modelBuilder.Entity("GameReviewSolution.Models.ReviewPost", b =>
+            modelBuilder.Entity("GameReviewSolution.Models.ReviewPostDTO", b =>
                 {
                     b.HasOne("GameReviewSolution.Models.Game", "Game")
                         .WithMany("ReviewsPosts")

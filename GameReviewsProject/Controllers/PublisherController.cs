@@ -12,8 +12,8 @@ namespace GameReviewSolution.Controllers;
 [ApiController]
 public class PublisherController : ControllerBase
 {
-    private readonly IRepoService<Publisher, PublisherDto> _publisherRepoService;
     private readonly ILogger<PublisherController> _logger;
+    private readonly IRepoService<Publisher, PublisherDto> _publisherRepoService;
 
     public PublisherController(IRepoService<Publisher, PublisherDto> publisherRepoService,
         ILogger<PublisherController> logger)
@@ -36,10 +36,9 @@ public class PublisherController : ControllerBase
     [Route("{id:int}")]
     public async Task<ActionResult> GetById(int id)
     {
-        PublisherDto publisherDto;
         try
         {
-            publisherDto = _publisherRepoService.GetDtoById(id);
+            var publisherDto = _publisherRepoService.GetDtoById(id);
             _logger.LogInformation("Found publisher with Id: {Id}", id);
             return Ok(publisherDto);
         }

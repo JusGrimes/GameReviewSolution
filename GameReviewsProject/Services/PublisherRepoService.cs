@@ -7,7 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
 
-public class PublisherRepoService : IRepoService<Publisher, PublisherDto>
+internal interface IPublisherRepoService : IRepoService<Publisher, PublisherDto>
+{
+}
+
+public class PublisherRepoService : IPublisherRepoService
 {
     private readonly GameReviewContext _context;
     private readonly ILogger<PublisherRepoService> _logger;

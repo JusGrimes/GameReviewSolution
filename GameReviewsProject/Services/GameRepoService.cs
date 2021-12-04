@@ -7,11 +7,14 @@ using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
 
-public class GameRepoService : IRepoService<Game, GameDto>
+public interface IGameRepoService : IRepoService<Game, GameDto>
+{
+}
+
+public class GameRepoService : IGameRepoService
 {
     private readonly GameReviewContext _context;
     private readonly ILogger<GameRepoService> _logger;
-
 
     public GameRepoService(GameReviewContext context, ILogger<GameRepoService> logger)
     {
