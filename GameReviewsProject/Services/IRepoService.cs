@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace GameReviewSolution.Services;
 
 public interface IRepoService<TEntity, TDto>
 {
-    public TEntity GetEntityById(int id);
-    public TDto GetDtoById(int id);
+    public Task<TEntity> GetEntityById(int id);
+    public Task<TDto> GetDtoById(int id);
 
-    public ICollection<TEntity> GetAllEntities();
-    public ICollection<TDto> GetAllDtos();
+    public Task<IEnumerable<TEntity>> GetAllEntities();
+    public Task<IEnumerable<TDto>> GetAllDtos();
 
 
-    public TEntity EntityFrom(TDto dto);
+    public Task<TEntity> EntityFrom(TDto dto);
     public TDto DtoFrom(TEntity entity);
 }

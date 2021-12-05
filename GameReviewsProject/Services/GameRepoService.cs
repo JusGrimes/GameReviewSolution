@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
@@ -22,29 +23,29 @@ public class GameRepoService : IGameRepoService
         _logger = logger;
     }
 
-    public Game GetEntityById(int id)
+    public async Task<Game> GetEntityById(int id)
     {
-        return _context.Games.Single(g => g.Id == id);
+        return await _context.Games.SingleAsync(g => g.Id == id);
     }
 
-    public GameDto GetDtoById(int id)
+    public async Task<GameDto> GetDtoById(int id)
     {
-        return DtoFrom(GetEntityById(id));
+        return DtoFrom(await GetEntityById(id));
     }
 
-    public ICollection<Game> GetAllEntities()
+    public async Task<IEnumerable<Game>> GetAllEntities()
     {
-        return _context.Games.ToImmutableList();
+        return await _context.Games.ToListAsync();
     }
 
-    public ICollection<GameDto> GetAllDtos()
+    public async Task<IEnumerable<GameDto>> GetAllDtos()
     {
-        return GetAllEntities().Select(DtoFrom).ToImmutableList();
+        return (await GetAllEntities()).Select(DtoFrom);
     }
 
-    public Game EntityFrom(GameDto dto)
+    public Task<Game> EntityFrom(GameDto dto)
     {
-        return _context.Games.Single(
+        return _context.Games.SingleAsync(
             g =>
                 g.Title == dto.Title &&
                 g.GamePublisher.Name.ToUpperInvariant() ==
