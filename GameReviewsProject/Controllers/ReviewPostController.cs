@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using GameReviewSolution.DTOs;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,10 +34,9 @@ public class ReviewPostController : ControllerBase
     [Route("review/{reviewId}")]
     public async Task<IActionResult> GetReviewById(int reviewId)
     {
-        ReviewPostDto review = null;
         try
         {
-            review = await _reviewPostRepoService.GetDtoById(reviewId);
+            var review = await _reviewPostRepoService.GetDtoById(reviewId);
             _logger.LogInformation("Found publisher with Id: {ReviewId}", reviewId);
             return Ok(review);
         }
