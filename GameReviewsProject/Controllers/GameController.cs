@@ -39,15 +39,10 @@ public class GameController : ControllerBase
             _logger.LogInformation("Found Game with Id: {Id}", id);
             return Ok(gameDto);
         }
-        catch (AggregateException ae)
+        catch (InvalidOperationException)
         {
-            foreach (var exception in ae.InnerExceptions)
-                if (exception is InvalidOperationException)
-                    _logger.LogInformation("Game not found with Id: {Id}", id);
-                else
-                    throw exception;
+            _logger.LogInformation("Game not found with Id: {Id}", id);
+            return NotFound();
         }
-
-        return NotFound();
     }
 }

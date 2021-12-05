@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using GameReviewSolution.DTOs;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,7 +25,7 @@ public class PublisherController : ControllerBase
     [Route("")]
     public async Task<ActionResult> GetAll()
     {
-        var publisherDtos = _publisherRepoService.GetAllDtos();
+        var publisherDtos = await _publisherRepoService.GetAllDtos();
         _logger.LogInformation("Publishers found : {PublisherCount}", publisherDtos.Count);
         if (publisherDtos.Count == 0) return NoContent();
         return Ok(publisherDtos);
@@ -34,9 +35,10 @@ public class PublisherController : ControllerBase
     [Route("{id:int}")]
     public async Task<ActionResult> GetById(int id)
     {
+        PublisherDto publisherDto = null;
         try
         {
-            var publisherDto = _publisherRepoService.GetDtoById(id);
+            publisherDto = await _publisherRepoService.GetDtoById(id);
             _logger.LogInformation("Found publisher with Id: {Id}", id);
             return Ok(publisherDto);
         }

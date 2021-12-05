@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using GameReviewSolution.DTOs;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -23,7 +24,7 @@ public class ReviewPostController : ControllerBase
     [Route("game/{gameId:int}")]
     public async Task<IActionResult> GetAllByGame(int gameId)
     {
-        var reviewList = _reviewPostRepoService.GetAllReviewsByGameId(gameId);
+        var reviewList = await _reviewPostRepoService.GetAllReviewsByGameId(gameId);
         _logger.LogDebug("located {Count} reviews with gameId:{GameId}", reviewList.Count, gameId);
         if (reviewList.Count == 0)
             return NotFound();
@@ -34,9 +35,10 @@ public class ReviewPostController : ControllerBase
     [Route("review/{reviewId}")]
     public async Task<IActionResult> GetReviewById(int reviewId)
     {
+        ReviewPostDto review = null;
         try
         {
-            var review = _reviewPostRepoService.GetDtoById(reviewId);
+            review = await _reviewPostRepoService.GetDtoById(reviewId);
             _logger.LogInformation("Found publisher with Id: {ReviewId}", reviewId);
             return Ok(review);
         }

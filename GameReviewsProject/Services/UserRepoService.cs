@@ -35,7 +35,7 @@ public class UserRepoService : IUserRepoService
 
     public async Task<IList<UserDto>> GetAllDtos()
     {
-        return (await GetAllEntities()).Select(DtoFrom);
+        return (await GetAllEntities()).Select(DtoFrom).ToList();
     }
 
     public async Task<User> EntityFrom(UserDto dto)
@@ -52,7 +52,7 @@ public class UserRepoService : IUserRepoService
         };
     }
 
-    public async Task<IEnumerable<User>> GetAllEntities()
+    public async Task<IList<User>> GetAllEntities()
     {
         return await _context.Users.ToListAsync();
     }

@@ -10,9 +10,9 @@ namespace GameReviewSolution.Services;
 
 public interface IReviewPostRepoService : IRepoService<ReviewPost, ReviewPostDto>
 {
-    Task<IEnumerable<ReviewPost>> GetAllReviewsByGameId(int gameId);
+    Task<IList<ReviewPost>> GetAllReviewsByGameId(int gameId);
 
-    Task<IEnumerable<ReviewPostDto>> GetAllReviewsByGameIdAsDto(int gameId);
+    Task<IList<ReviewPostDto>> GetAllReviewsByGameIdAsDto(int gameId);
 }
 
 public class ReviewPostRepoService : IReviewPostRepoService
@@ -64,13 +64,13 @@ public class ReviewPostRepoService : IReviewPostRepoService
         };
     }
 
-    public async Task<IEnumerable<ReviewPost>> GetAllReviewsByGameId(int gameId)
+    public async Task<IList<ReviewPost>> GetAllReviewsByGameId(int gameId)
     {
         return await _context.ReviewPosts.Where(post => post.Game.Id == gameId).ToListAsync();
     }
 
-    public async Task<IEnumerable<ReviewPostDto>> GetAllReviewsByGameIdAsDto(int gameId)
+    public async Task<IList<ReviewPostDto>> GetAllReviewsByGameIdAsDto(int gameId)
     {
-        return (await GetAllReviewsByGameId(gameId)).Select(DtoFrom);
+        return (await GetAllReviewsByGameId(gameId)).Select(DtoFrom).ToList();
     }
 }
