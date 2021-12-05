@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
@@ -22,29 +23,29 @@ public class PublisherRepoService : IPublisherRepoService
         _logger = logger;
     }
 
-    public Publisher GetEntityById(int id)
+    public async Task<Publisher> GetEntityById(int id)
     {
-        return _context.Publishers.Single(p => p.Id == id);
+        return await _context.Publishers.SingleAsync(p => p.Id == id);
     }
 
-    public PublisherDto GetDtoById(int id)
+    public async Task<PublisherDto> GetDtoById(int id)
     {
-        return DtoFrom(GetEntityById(id));
+        return DtoFrom(await GetEntityById(id));
     }
 
-    public ICollection<Publisher> GetAllEntities()
+    public async Task<IEnumerable<Publisher>> GetAllEntities()
     {
-        return _context.Publishers.ToImmutableList();
+        return await _context.Publishers.ToListAsync();
     }
 
-    public ICollection<PublisherDto> GetAllDtos()
+    public async Task<IEnumerable<PublisherDto>> GetAllDtos()
     {
-        return GetAllEntities().Select(DtoFrom).ToImmutableList();
+        return (await GetAllEntities()).Select(DtoFrom);
     }
 
-    public Publisher EntityFrom(PublisherDto dto)
+    public Task<Publisher> EntityFrom(PublisherDto dto)
     {
-        return null;
+        return _context.Publishers.SingleAsync(publisher => publisher.Id == dto.Id);
     }
 
     public PublisherDto DtoFrom(Publisher entity)
