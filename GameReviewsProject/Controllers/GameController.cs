@@ -1,6 +1,5 @@
 using System;
 using System.Threading.Tasks;
-using GameReviewSolution.DTOs;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -24,7 +23,7 @@ public class GameController : ControllerBase
     [Route("")]
     public async Task<IActionResult> GetAll()
     {
-        var gameList = _gameRepoService.GetAllDtos();
+        var gameList = await _gameRepoService.GetAllDtos();
         _logger.LogInformation("Games found : {GamesFound}", gameList.Count);
         if (gameList.Count == 0) return NoContent();
         return Ok(gameList);
@@ -34,18 +33,21 @@ public class GameController : ControllerBase
     [Route("{id:int}")]
     public async Task<IActionResult> GetById(int id)
     {
-        GameDto gameDto;
         try
         {
-            gameDto = _gameRepoService.GetDtoById(id);
+            var gameDto = await _gameRepoService.GetDtoById(id);
             _logger.LogInformation("Found Game with Id: {Id}", id);
+            return Ok(gameDto);
         }
-        catch (InvalidOperationException)
+        catch (AggregateException ae)
         {
-            _logger.LogInformation("Game not found with Id: {Id}", id);
-            return NotFound();
+            foreach (var exception in ae.InnerExceptions)
+                if (exception is InvalidOperationException)
+                    _logger.LogInformation("Game not found with Id: {Id}", id);
+                else
+                    throw exception;
         }
 
-        return Ok(gameDto);
+        return NotFound();
     }
 }
