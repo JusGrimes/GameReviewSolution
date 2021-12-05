@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
@@ -22,29 +23,29 @@ public class UserRepoService : IUserRepoService
         _logger = logger;
     }
 
-    public User GetEntityById(int id)
+    public async Task<User> GetEntityById(int id)
     {
-        return _context.Users.Single(user => user.Id == id);
+        return await _context.Users.SingleAsync(user => user.Id == id);
     }
 
-    public UserDto GetDtoById(int id)
+    public async Task<UserDto> GetDtoById(int id)
     {
-        return DtoFrom(GetEntityById(id));
+        return DtoFrom(await GetEntityById(id));
     }
 
-    public ICollection<User> GetAllEntities()
+    public async Task<IEnumerable<User>> GetAllEntities()
     {
-        return _context.Users.ToImmutableList();
+        return await _context.Users.ToListAsync();
     }
 
-    public ICollection<UserDto> GetAllDtos()
+    public async Task<IEnumerable<UserDto>> GetAllDtos()
     {
-        return GetAllEntities().Select(DtoFrom).ToImmutableList();
+        return (await GetAllEntities()).Select(DtoFrom);
     }
 
-    public User EntityFrom(UserDto dto)
+    public async Task<User> EntityFrom(UserDto dto)
     {
-        return GetEntityById(dto.Id);
+        return await GetEntityById(dto.Id);
     }
 
     public UserDto DtoFrom(User entity)
