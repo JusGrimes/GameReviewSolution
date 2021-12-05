@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Threading.Tasks;
 using GameReviewSolution.DTOs;
 using GameReviewSolution.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Services;
 
 public interface IReviewPostRepoService : IRepoService<ReviewPost, ReviewPostDto>
 {
-    ICollection<ReviewPost> GetAllReviewsByGameId(int gameId);
+    Task<IEnumerable<ReviewPost>> GetAllReviewsByGameId(int gameId);
 
-    ICollection<ReviewPostDto> GetAllReviewsByGameIdAsDto(int gameId);
+    Task<IEnumerable<ReviewPostDto>> GetAllReviewsByGameIdAsDto(int gameId);
 }
 
 public class ReviewPostRepoService : IReviewPostRepoService
@@ -25,29 +26,29 @@ public class ReviewPostRepoService : IReviewPostRepoService
         _logger = logger;
     }
 
-    public ReviewPost GetEntityById(int id)
+    public Task<ReviewPost> GetEntityById(int id)
     {
-        return _context.ReviewPosts.Single(post => post.Id == id);
+        return _context.ReviewPosts.SingleAsync(post => post.Id == id);
     }
 
-    public ReviewPostDto GetDtoById(int id)
+    public async Task<ReviewPostDto> GetDtoById(int id)
     {
-        return DtoFrom(GetEntityById(id));
+        return DtoFrom(await GetEntityById(id));
     }
 
-    public ICollection<ReviewPost> GetAllEntities()
+    public async Task<IEnumerable<ReviewPost>> GetAllEntities()
     {
-        return _context.ReviewPosts.ToImmutableList();
+        return await _context.ReviewPosts.ToListAsync();
     }
 
-    public ICollection<ReviewPostDto> GetAllDtos()
+    public async Task<IEnumerable<ReviewPostDto>> GetAllDtos()
     {
-        return GetAllEntities().Select(DtoFrom).ToImmutableList();
+        return (await GetAllEntities()).Select(DtoFrom);
     }
 
-    public ReviewPost EntityFrom(ReviewPostDto dto)
+    public async Task<ReviewPost> EntityFrom(ReviewPostDto dto)
     {
-        return _context.ReviewPosts.Single(
+        return await _context.ReviewPosts.SingleAsync(
             r => r.Id == dto.Id);
     }
 
@@ -63,14 +64,13 @@ public class ReviewPostRepoService : IReviewPostRepoService
         };
     }
 
-    public ICollection<ReviewPost> GetAllReviewsByGameId(int gameId)
+    public async Task<IEnumerable<ReviewPost>> GetAllReviewsByGameId(int gameId)
     {
-        return _context.ReviewPosts.Where(post => post.Game.Id == gameId)
-            .ToImmutableList();
+        return await _context.ReviewPosts.Where(post => post.Game.Id == gameId).ToListAsync();
     }
 
-    public ICollection<ReviewPostDto> GetAllReviewsByGameIdAsDto(int gameId)
+    public async Task<IEnumerable<ReviewPostDto>> GetAllReviewsByGameIdAsDto(int gameId)
     {
-        return GetAllReviewsByGameId(gameId).Select(DtoFrom).ToImmutableList();
+        return (await GetAllReviewsByGameId(gameId)).Select(DtoFrom);
     }
 }
