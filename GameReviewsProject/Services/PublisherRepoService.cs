@@ -33,14 +33,14 @@ public class PublisherRepoService : IPublisherRepoService
         return DtoFrom(await GetEntityById(id));
     }
 
-    public async Task<IEnumerable<Publisher>> GetAllEntities()
+    public async Task<IList<Publisher>> GetAllEntities()
     {
         return await _context.Publishers.ToListAsync();
     }
 
-    public async Task<IEnumerable<PublisherDto>> GetAllDtos()
+    public async Task<IList<PublisherDto>> GetAllDtos()
     {
-        return (await GetAllEntities()).Select(DtoFrom);
+        return (await GetAllEntities()).Select(DtoFrom).ToList();
     }
 
     public Task<Publisher> EntityFrom(PublisherDto dto)

@@ -8,8 +8,8 @@ public interface IRepoService<TEntity, TDto>
     public Task<TEntity> GetEntityById(int id);
     public Task<TDto> GetDtoById(int id);
 
-    public Task<IEnumerable<TEntity>> GetAllEntities();
-    public Task<IEnumerable<TDto>> GetAllDtos();
+    public Task<IList<TEntity>> GetAllEntities();
+    public Task<IList<TDto>> GetAllDtos();
 
 
     public Task<TEntity> EntityFrom(TDto dto);

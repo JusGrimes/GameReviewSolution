@@ -36,14 +36,14 @@ public class ReviewPostRepoService : IReviewPostRepoService
         return DtoFrom(await GetEntityById(id));
     }
 
-    public async Task<IEnumerable<ReviewPost>> GetAllEntities()
+    public async Task<IList<ReviewPost>> GetAllEntities()
     {
         return await _context.ReviewPosts.ToListAsync();
     }
 
-    public async Task<IEnumerable<ReviewPostDto>> GetAllDtos()
+    public async Task<IList<ReviewPostDto>> GetAllDtos()
     {
-        return (await GetAllEntities()).Select(DtoFrom);
+        return (await GetAllEntities()).Select(DtoFrom).ToList();
     }
 
     public async Task<ReviewPost> EntityFrom(ReviewPostDto dto)

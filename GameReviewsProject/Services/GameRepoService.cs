@@ -33,14 +33,14 @@ public class GameRepoService : IGameRepoService
         return DtoFrom(await GetEntityById(id));
     }
 
-    public async Task<IEnumerable<Game>> GetAllEntities()
+    public async Task<IList<Game>> GetAllEntities()
     {
         return await _context.Games.ToListAsync();
     }
 
-    public async Task<IEnumerable<GameDto>> GetAllDtos()
+    public async Task<IList<GameDto>> GetAllDtos()
     {
-        return (await GetAllEntities()).Select(DtoFrom);
+        return (await GetAllEntities()).Select(DtoFrom).ToList();
     }
 
     public Task<Game> EntityFrom(GameDto dto)

@@ -33,12 +33,7 @@ public class UserRepoService : IUserRepoService
         return DtoFrom(await GetEntityById(id));
     }
 
-    public async Task<IEnumerable<User>> GetAllEntities()
-    {
-        return await _context.Users.ToListAsync();
-    }
-
-    public async Task<IEnumerable<UserDto>> GetAllDtos()
+    public async Task<IList<UserDto>> GetAllDtos()
     {
         return (await GetAllEntities()).Select(DtoFrom);
     }
@@ -55,5 +50,10 @@ public class UserRepoService : IUserRepoService
             Id = entity.Id,
             Username = entity.Username
         };
+    }
+
+    public async Task<IEnumerable<User>> GetAllEntities()
+    {
+        return await _context.Users.ToListAsync();
     }
 }
