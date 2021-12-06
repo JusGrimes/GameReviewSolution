@@ -23,6 +23,11 @@ public class UserRepoService : IUserRepoService
         _logger = logger;
     }
 
+    public Task<UserDto> Add(UserDto dtoInput)
+    {
+        return null;
+    }
+
     public async Task<User> GetEntityById(int id)
     {
         return await _context.Users.SingleAsync(user => user.Id == id);

@@ -26,6 +26,11 @@ public class ReviewPostRepoService : IReviewPostRepoService
         _logger = logger;
     }
 
+    public Task<ReviewPostDto> Add(ReviewPostDto dtoInput)
+    {
+        return null;
+    }
+
     public Task<ReviewPost> GetEntityById(int id)
     {
         return _context.ReviewPosts.SingleAsync(post => post.Id == id);

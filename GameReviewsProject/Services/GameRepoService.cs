@@ -15,12 +15,34 @@ public interface IGameRepoService : IRepoService<Game, GameDto>
 public class GameRepoService : IGameRepoService
 {
     private readonly GameReviewContext _context;
+
     private readonly ILogger<GameRepoService> _logger;
 
     public GameRepoService(GameReviewContext context, ILogger<GameRepoService> logger)
     {
         _context = context;
         _logger = logger;
+    }
+
+    public async Task<GameDto> Add(GameDto dtoInput)
+    {
+        var newPublisher = await _context.Publishers.SingleOrDefaultAsync(publisher =>
+            publisher.Name.ToLower() == dtoInput.PublisherName.ToLowerInvariant());
+
+        Game newGame = new()
+        {
+            Id = dtoInput.Id,
+            Title = dtoInput.Title,
+            ReleaseDate = dtoInput.ReleaseDate?.Date,
+            GameUri = dtoInput.GameWebsiteUri,
+            GamePublisher = newPublisher,
+            ReviewsPosts = null
+        };
+
+        _context.Games.Add(newGame);
+        await _context.SaveChangesAsync();
+
+        return DtoFrom(newGame);
     }
 
     public async Task<Game> GetEntityById(int id)
@@ -61,8 +83,8 @@ public class GameRepoService : IGameRepoService
             Title = entity.Title,
             ReleaseDate = entity.ReleaseDate,
             GameWebsiteUri = entity.GameUri,
-            PublisherName = entity.GamePublisher.Name,
-            PublisherWebsiteUri = entity.GamePublisher.WebsiteUri
+            PublisherName = entity.GamePublisher?.Name,
+            PublisherWebsiteUri = entity.GamePublisher?.WebsiteUri
         };
     }
 }

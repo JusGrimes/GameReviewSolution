@@ -5,6 +5,7 @@ namespace GameReviewSolution.Services;
 
 public interface IRepoService<TEntity, TDto>
 {
+    public Task<TDto> Add(TDto dtoInput);
     public Task<TEntity> GetEntityById(int id);
     public Task<TDto> GetDtoById(int id);
 

@@ -23,6 +23,11 @@ public class PublisherRepoService : IPublisherRepoService
         _logger = logger;
     }
 
+    public Task<PublisherDto> Add(PublisherDto dtoInput)
+    {
+        return null;
+    }
+
     public async Task<Publisher> GetEntityById(int id)
     {
         return await _context.Publishers.SingleAsync(p => p.Id == id);
