@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace GameReviewSolution;
 
@@ -60,6 +61,7 @@ public class Startup
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GameReviewsProject v1"));
         }
 
+        app.UseSerilogRequestLogging();
         app.UseHttpsRedirection();
 
         app.UseRouting();
