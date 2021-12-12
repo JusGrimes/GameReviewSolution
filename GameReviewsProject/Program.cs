@@ -15,6 +15,7 @@ public class Program
             .MinimumLevel.Override("Microsoft.AspNetCore", LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .WriteTo.Console()
+            .WriteTo.Seq("http://localhost:5341")
             .CreateBootstrapLogger();
 
         try
@@ -45,7 +46,9 @@ public class Program
                 .ReadFrom.Services(services)
                 .Enrich.FromLogContext()
                 .WriteTo.Console(outputTemplate:
-                    "[{Timestamp:HH:mm:ss} {Level:u3}] -{SourceContext}- {Message:lj}{NewLine}{Exception}"))
+                    "[{Timestamp:HH:mm:ss} {Level:u3}] -{SourceContext}- {Message:lj}{NewLine}{Exception}")
+                .WriteTo.Seq("http://localhost:5341")
+            )
             .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
     }
 }
