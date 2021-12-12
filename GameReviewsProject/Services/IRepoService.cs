@@ -15,4 +15,5 @@ public interface IRepoService<TEntity, TDto>
 
     public Task<TEntity> EntityFrom(TDto dto);
     public TDto DtoFrom(TEntity entity);
+    Task<TDto> RemoveById(int id);
 }

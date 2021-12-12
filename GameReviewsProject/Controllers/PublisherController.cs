@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
+using GameReviewSolution.DTOs;
 using GameReviewSolution.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace GameReviewSolution.Controllers;
@@ -43,6 +45,24 @@ public class PublisherController : ControllerBase
         catch (InvalidOperationException)
         {
             _logger.LogInformation("Couldn't locate publisher with Id: {Id}", id);
+            return NotFound();
+        }
+    }
+
+    [HttpDelete]
+    [Route("{id:int}")]
+    public async Task<ActionResult<PublisherDto>> Delete(int id)
+    {
+        _logger.LogInformation("Deleting Game with id:{Id}", id);
+        try
+        {
+            var delDto = await _publisherRepoService.RemoveById(id);
+            _logger.LogInformation("Publisher successfully deleted. {@DelDto}", delDto);
+            return Ok(delDto);
+        }
+        catch (Exception e) when (e is DbUpdateException or InvalidOperationException)
+        {
+            _logger.LogError("Unable to Delete Publisher with id:{Id}", id);
             return NotFound();
         }
     }

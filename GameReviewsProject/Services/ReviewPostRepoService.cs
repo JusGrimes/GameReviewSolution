@@ -69,6 +69,13 @@ public class ReviewPostRepoService : IReviewPostRepoService
         };
     }
 
+    public async Task<ReviewPostDto> RemoveById(int id)
+    {
+        var entity = GetEntityById(id);
+        var removedEntity = _context.Remove(await entity).Entity;
+        return DtoFrom(removedEntity);
+    }
+
     public async Task<IList<ReviewPost>> GetAllReviewsByGameId(int gameId)
     {
         return await _context.ReviewPosts.Where(post => post.Game.Id == gameId).ToListAsync();
