@@ -62,4 +62,12 @@ public class PublisherRepoService : IPublisherRepoService
             WebsiteUri = entity.WebsiteUri
         };
     }
+
+    public async Task<PublisherDto> RemoveById(int id)
+    {
+        var entity = GetEntityById(id);
+        var removedEntity = _context.Remove(await entity).Entity;
+        await _context.SaveChangesAsync();
+        return DtoFrom(removedEntity);
+    }
 }

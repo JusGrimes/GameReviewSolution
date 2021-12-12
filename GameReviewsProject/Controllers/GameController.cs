@@ -64,4 +64,22 @@ public class GameController : ControllerBase
             return Conflict();
         }
     }
+
+    [HttpDelete]
+    [Route("{id:int}")]
+    public async Task<ActionResult<GameDto>> CreRemoveGame(int id)
+    {
+        _logger.LogInformation("Deleting Game with id:{Id}", id);
+        try
+        {
+            var delDto = await _gameRepoService.RemoveById(id);
+            _logger.LogInformation("Game successfully deleted. {@DelDto}", delDto);
+            return Ok(delDto);
+        }
+        catch (Exception e) when (e is DbUpdateException or InvalidOperationException)
+        {
+            _logger.LogError("Unable to Game with id:{Id}", id);
+            return NotFound();
+        }
+    }
 }

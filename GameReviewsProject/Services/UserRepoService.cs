@@ -57,6 +57,14 @@ public class UserRepoService : IUserRepoService
         };
     }
 
+    public async Task<UserDto> RemoveById(int id)
+    {
+        var entity = GetEntityById(id);
+        var removedEntity = _context.Remove(await entity).Entity;
+        await _context.SaveChangesAsync();
+        return DtoFrom(removedEntity);
+    }
+
     public async Task<IList<User>> GetAllEntities()
     {
         return await _context.Users.ToListAsync();

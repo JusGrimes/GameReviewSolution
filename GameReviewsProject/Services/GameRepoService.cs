@@ -87,4 +87,12 @@ public class GameRepoService : IGameRepoService
             PublisherWebsiteUri = entity.GamePublisher?.WebsiteUri
         };
     }
+
+    public async Task<GameDto> RemoveById(int id)
+    {
+        var entity = GetEntityById(id);
+        var removedEntity = _context.Remove(await entity).Entity;
+        await _context.SaveChangesAsync();
+        return DtoFrom(removedEntity);
+    }
 }
